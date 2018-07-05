@@ -6,22 +6,27 @@ $(document).ready(function() {
 
 // console.log($("td").attr("data-num"))
   var theOne=0;
-  $("td").click(function () {
-    if(playerTurn){
+
+  $("[data-num]").click(function () {
+    if(playerTurn && $(this).html() ==""){
       $(this).addClass("X").html("X");
       theOne = $(this).data("num");
       // console.log("first"+theOne);
       playerTurn=false;
-      // console.log($("td").data("num",1).hasClass('X'));
-      $('td[data-slide="0"]')
-      //win(theOne);
-    }else {
+      // console.log($('[data-num ="' + theOne + '"]').hasClass('X'));
+      // $('td[data-num="0"]')
+      console.log("X win yet ? "+win(theOne));
+    }else if(!playerTurn && $(this).html() =="") {
       $(this).addClass("O").html("O");
       theOne = $(this).data("num");
       // console.log("second"+theOne);
       playerTurn = true;
+      // console.log($('[data-num ="' + theOne + '"]').hasClass('X'));
+
       // console.log($("td").attr("data-num",theOne).hasClass('X'));
-      //win(theOne);
+      // win(theOne);
+      console.log("X win yet ? "+win(theOne));
+
     }
   });
 
@@ -36,27 +41,39 @@ $(document).ready(function() {
       [0,4,8],
       [2,4,6]
     ]
-  function win(number) {
-    console.log("number is "+number);
-    for (var i = 0; i < winConditions.length; i++) {
-      for (var j = 0; j < winConditions[i].length; j++) {
-        if(number ==winConditions[i][j]){
-          console.log("i = "+ i+" and j = "+ j);
-          for (var k = 0; k < winConditions[i].length; k++) {
 
-            console.log("Does "+winConditions[i][k]+" have X ? "+$("td").data("num",winConditions[i][k]).hasClass('X'));
-            // if($("td").data("num",winConditions[i][k]).hasClass('X')==false){
-            //   console.log("i am false");
-            //   return false;  ony returns true if all returns true
-            // }
-            // // console.log("i am true");
+    var counter = 1;
+
+    function win(number) {
+      //number is data-num of td being clicked
+      console.log("number is "+number);
+      //loops array of array
+      for (var i = 0; i < winConditions.length; i++) {
+        //loops the inner array of each
+        for (var j = 0; j < winConditions[i].length; j++) {
+          //check if the value in array = selecte data-num
+          if(number ==winConditions[i][j]){
+            console.log("i = "+ i+" and j = "+ j);
+            //loops all the arrays that contains data-num
+             for (var k = 0; k < winConditions[i].length; k++){
+               //
+                if(!$('[data-num ="' + winConditions[i][k] + '"]').hasClass('X')){
+                  counter = 1;
+                }
+                else {
+                  counter+=1;
+                }
+               // console.log("got it?"+$('[data-num ="' + winConditions[i][k] + '"]').hasClass('X'));
+             }
+            //  if(!$('[data-num ="' + winConditions[i][k] + '"]').hasClass('X')) return false;
             // return true;
           }
         }
       }
+      return counter;
+      // return true;
     }
-  }
 
-//"[data-num=2]"
+  //"[data-num=2]"
 
 });

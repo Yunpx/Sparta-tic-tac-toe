@@ -14,7 +14,7 @@ The Task is to implement TicTacToe game in jQuery, using provided html and css.
 for (var i = 0; i < winConditions.length; i++) {
   for (var j = 0; j < winConditions[i].length; j++) {
     if(number ==winConditions[i][j]){
-      check if it has class of X or O ,then return boolean
+      check if it has class of X or O ,then return booleanSSSSSS
     }
   }
 }
